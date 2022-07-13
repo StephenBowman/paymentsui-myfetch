@@ -36,6 +36,7 @@ const Transactions = () => {
     }
 
     // empty [] means run code only once
+    // if you want to run when a varable changes put var name in brackets [variable]
     useEffect(() => { getTransactionDataFromServer() }, []);
 
     //const transactions = getAllPayments();
