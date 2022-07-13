@@ -1,11 +1,11 @@
 import TransactionRow from './TransactionRow';
 import './Transactions.css';
-import getAllPayments, { getAllPaymentsRestVersion } from '../Data/DataFunctions';
+import getAllPayments, { getAllPaymentsAxiosVersion, getAllPaymentsRestVersion } from '../Data/DataFunctions';
 import { Fragment, useState, useEffect } from 'react';
 
 const Transactions = () => {
 
-    getAllPaymentsRestVersion();
+    getAllPaymentsAxiosVersion();
 
     // alternative way but requires use of transaction in TransactionRow e.gb {props.transaction.id}
     //const [payments,setPayments] = useState(getAllPayments);
@@ -14,16 +14,11 @@ const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
 
     const getTransactionDataFromServer = () => {
-        const paymentsPromise = getAllPaymentsRestVersion();
+        const paymentsPromise = getAllPaymentsAxiosVersion();
         paymentsPromise.then(
             (response) => {
-                if (response.ok) {
-                    response.json().then(
-                        data => {
-                            //set the transactions variables
-                            setTransactions(data);
-                        }
-                    )
+                if (response.status === 200) {
+                    setTransactions(response.data);
                 } else {
                     console.log("something went wrong", response.status);
                 }
@@ -69,7 +64,7 @@ const Transactions = () => {
     return <Fragment>
 
         Select country: <select onChange={changeCountry}>
-            <option disabled selected>All</option>
+            <option disabled>All</option>
             {countryOptions}}
         </select>
 
