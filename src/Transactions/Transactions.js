@@ -45,13 +45,13 @@ const Transactions = () => {
         country => <option key={country} value={country}>{country}</option>
     );
     //selected country as stateFul variable
-    const [selectedCountry, setSelectedCountry] = useState(uniqueCountries[0]);
+    const [selectedCountry, setSelectedCountry] = useState("none");
 
     // how to debug
     //debugger;
 
-    const displayPayments = transactions.map((it, idx) =>
-        (selectedCountry == null || it.country === selectedCountry) &&
+    const displayTransactions = transactions.map((it, idx) =>
+        (it.country === selectedCountry) &&
         <TransactionRow key={idx} id={it.id} date={it.date} country={it.country}
             currency={it.currency} amount={it.amount} />);
 
@@ -63,9 +63,9 @@ const Transactions = () => {
     // Fragment is a non rendering Div
     return <Fragment>
 
-        Select country: <select onChange={changeCountry}>
-            <option disabled>All</option>
-            {countryOptions}}
+        Select country: <select onChange={changeCountry} defaultValue="none">
+            <option disabled value="none">Please select a country</option>
+            {countryOptions}
         </select>
 
         <table id="transactionsTable" className="transactionsTable" style={{ background: "#ccc" }}>
@@ -79,7 +79,7 @@ const Transactions = () => {
                 </tr>
             </thead>
             <tbody>
-                {displayPayments}
+                {displayTransactions}
 
             </tbody>
         </table>
