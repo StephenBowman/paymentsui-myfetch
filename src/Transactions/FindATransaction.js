@@ -3,12 +3,12 @@ import Search from "../Search/Search"
 import Transactions from "./Transactions"
 
 const FindATransaction = () =>{
-    return (<Fragment>
+    return <Fragment>
         return(
             <Search />
             <Transactions />
         )
-    </Fragment>)
+    </Fragment>
 }
 
 export default FindATransaction
